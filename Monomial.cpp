@@ -81,15 +81,6 @@ istream& operator>>(istream& in, Monomial& m) {
 	// Setting c & d
 	m = s;
 	return in;
-	/*int c, d;
-	cout << "Insert Monomial coefficient: ";
-	in >> c;
-	cout << "Insert Monomial degree: ";
-	in >> d;
-	m.setCoefficient(c);
-	m.setDegree(d);
-	return in;
-	*/
 }
 
 ostream& operator<<(ostream& out, const Monomial& m) {

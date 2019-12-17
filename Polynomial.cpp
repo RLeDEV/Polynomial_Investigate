@@ -229,7 +229,7 @@ const Polynomial& Polynomial::operator-=(const Polynomial& other) {
 	return *this;
 }
 
-double& Polynomial::operator[](int num) const { // Get coefficient where degree=num
+double Polynomial::operator[](int num) { // Get coefficient where degree=num
 	Monomial* current = head;
 	double x = 0;
 	if (head == NULL) return x; // list is empty, returning 0
