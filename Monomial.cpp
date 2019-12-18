@@ -23,36 +23,35 @@ Monomial::Monomial(double coe, int deg) {
 // C'tor with string
 Monomial::Monomial(string s) {
 	bool xExist = false;
-	double finalC = 1;
-	int finalD = 0;
+	double finalC;
 	string num;
 	int i;
 	if (s[0] != '-') { // this is a positive number
 		for (i = 0; i < (int)(s.length()); i++) {
-			if (s[i] == 'x') // Finds if the currently index contains 'x'
+			if (s[i] == 'x')
 				break;
-			num += s[i]; // copying the inputed string until 'x' found
+			num += s[i];
 		}
-		if (s[0] == 'x' || (s[0] == '1' && s[1] == 'x')) { // finds if the inputed string is only 'x'
+		if (s[0] == 'x' || (s[0] == '1' && s[1] == 'x')) {
 			this->c = 1;
 		}
-		else { // inputed string is not 'x' only.
-			finalC= stod(num); 
-			this->c = finalC; // Initializing the found C.
+		else {
+			finalC= stod(num);
+			this->c = finalC;
 		}
-		num = ""; // reseting num
-		for (int j = 0; j < (int)(s.length()); j++) { // checks if there's 'x' in the string (for degree)
+		num = "";
+		for (int j = 0; j < (int)(s.length()); j++) {
 			if (s[j] == 'x')
 				xExist = true;
 		}
-		if (xExist == false) // In case there's no 'x' in the inputed string, degree will be 0
+		if (xExist == false)
 		{
 			this->d = 0;
 		}
-		else if (i == s.length() - 1) { // In case there's no degree in the inputed string, but only X, d = 1
+		else if (i == (int)(s.length()) - 1) {
 			this->d = 1;
 		}
-		else { // Calculating the degree and initialize to D
+		else {
 			for (i = i+2; i < (int)(s.length()); i++) {
 				num += s[i];
 			}
@@ -62,42 +61,44 @@ Monomial::Monomial(string s) {
 	else { // this is a negative number
 		int i;
 		for (i = 1; i < (int)(s.length()); i++) {
-			if (s[i] == 'x') // Finds if the currently index contains 'x'
+			if (s[i] == 'x')
 				break;
-			num += s[i]; // copying the inputed string until 'x' found
+			num += s[i];
 		}
-		if (s[1] == 'x' || (s[1] == '1' && s[2] == 'x')) { // finds if the inputed string is only '-x'
+		if (s[1] == 'x' || (s[1] == '1' && s[2] == 'x')) {
 			this->c = -1;
 		}
-		else { // inputed string is not '-x' only.
+		else {
 			finalC = stod(num) * (-1);
-			this->c = finalC; // Initializing the found C.
+			this->c = finalC;
 		}
-		num = ""; // reseting num
-		for (int j = 0; j < (int)(s.length()); j++) { // checks if there's 'x' in the string (for degree)
+		num = "";
+		for (int j = 0; j < (int)(s.length()); j++) {
 			if (s[j] == 'x')
 				xExist = true;
 		}
-		if (xExist == false) // In case there's no 'x' in the inputed string, degree will be 0
+		if (xExist == false)
 		{
 			this->d = 0;
 		}
-		else if (i == s.length() - 1) { // In case there's no degree in the inputed string, but only X, d = 1
+		else if (i == (int)(s.length()) - 1) {
 			this->d = 1;
 		}
-		else { // Calculating the degree and initialize to D
+		else {
 			for (i = i + 2; i < (int)(s.length()); i++) {
 				num += s[i];
 			}
 			this->d = stoi(num);
 		}
 	}
+	this->next = NULL;
 	numberOfMonomials++;
 }
 
 Monomial::Monomial(const Monomial& other)
 	: d(other.d) {
 	c = other.c;
+	this->next = NULL;
 	numberOfMonomials++;
 }
 
