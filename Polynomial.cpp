@@ -4,9 +4,10 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <iomanip>
 #include <iostream>
-#include <string>
+#include <string.h>
 #include "Polynomial.h"
 #include "Monomial.h"
+using std::string;
 
 using namespace std;
 
@@ -46,8 +47,12 @@ istream& operator>>(istream& in, Polynomial& p) {
 	p.head = NULL; // reseting the polynomial
 	string s;
 	getline(in,s); // getting the string from input
+	if (s[0] == '\0') {
+		cout << "ERROR!! " << endl;
+		return in;
+	}
 	int stringSize = s.length();
-	char *dup = _strdup(s.c_str()); // duplicating the string to array of chars
+	char *dup = strdup(s.c_str()); // duplicating the string to array of chars
 	string splitedString = strtok(dup, "+-,");
 	char signs[100] = "";
 	if (s == "0") { 

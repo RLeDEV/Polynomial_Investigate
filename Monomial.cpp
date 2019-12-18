@@ -22,45 +22,75 @@ Monomial::Monomial(double coe, int deg) {
 
 // C'tor with string
 Monomial::Monomial(string s) {
-	if (s == "x") {
-		this->c = 1;
-		this->d = 1;
+	bool xExist = false;
+	double finalC = 1;
+	int finalD = 0;
+	string num;
+	int i;
+	if (s[0] != '-') { // this is a positive number
+		for (i = 0; i < (int)(s.length()); i++) {
+			if (s[i] == 'x') // Finds if the currently index contains 'x'
+				break;
+			num += s[i]; // copying the inputed string until 'x' found
+		}
+		if (s[0] == 'x' || (s[0] == '1' && s[1] == 'x')) { // finds if the inputed string is only 'x'
+			this->c = 1;
+		}
+		else { // inputed string is not 'x' only.
+			finalC= stod(num); 
+			this->c = finalC; // Initializing the found C.
+		}
+		num = ""; // reseting num
+		for (int j = 0; j < (int)(s.length()); j++) { // checks if there's 'x' in the string (for degree)
+			if (s[j] == 'x')
+				xExist = true;
+		}
+		if (xExist == false) // In case there's no 'x' in the inputed string, degree will be 0
+		{
+			this->d = 0;
+		}
+		else if (i == s.length() - 1) { // In case there's no degree in the inputed string, but only X, d = 1
+			this->d = 1;
+		}
+		else { // Calculating the degree and initialize to D
+			for (i = i+2; i < (int)(s.length()); i++) {
+				num += s[i];
+			}
+			this->d = stoi(num);
+		}
 	}
-	else if (s == "-x") {
-		this->c = -1;
-		this->d = 1;
-	}
-	else if (s[0] == '-' && s.length() < 3) {
-		this->c = stod(&s[1]) * (-1);
-		this->d = 0;
-	}
-	else if (s[0] == '-' && s.length() < 4 && s[2] == 'x') {
-		this->c = stod(&s[1]) *(-1);
-		this->d = 1;
-	}
-	else if (s[0] == '-' && s.length() >= 4) {
-		this->c = stod(&s[1]) * (-1);
-		this->d = stoi(&s[s.length() - 1]);
-	}
-	else if (s[0] != '-' && s.length() < 3 && s[1] == 'x') {
-		this->c = stod(&s[0]);
-		this->d = 1;
-	}
-	else if (s[0] == 'x' && s.length() <= 3) {
-		this->c = 1;
-		this->d = stoi(&s[s.length() - 1]);
-	}
-	else if (s[0] != '-' && s.length() < 2) {
-		this->c = stod(&s[0]);
-		this->d = 0;
-	}
-	else if (s[0] != '-' && s.length() >= 3) {
-		this->c = stod(&s[0]);
-		this->d = stoi(&s[s.length() - 1]);
-	}
-	else {
-		this->c = stod(&s[0]);
-		this->d = 0;
+	else { // this is a negative number
+		int i;
+		for (i = 1; i < (int)(s.length()); i++) {
+			if (s[i] == 'x') // Finds if the currently index contains 'x'
+				break;
+			num += s[i]; // copying the inputed string until 'x' found
+		}
+		if (s[1] == 'x' || (s[1] == '1' && s[2] == 'x')) { // finds if the inputed string is only '-x'
+			this->c = -1;
+		}
+		else { // inputed string is not '-x' only.
+			finalC = stod(num) * (-1);
+			this->c = finalC; // Initializing the found C.
+		}
+		num = ""; // reseting num
+		for (int j = 0; j < (int)(s.length()); j++) { // checks if there's 'x' in the string (for degree)
+			if (s[j] == 'x')
+				xExist = true;
+		}
+		if (xExist == false) // In case there's no 'x' in the inputed string, degree will be 0
+		{
+			this->d = 0;
+		}
+		else if (i == s.length() - 1) { // In case there's no degree in the inputed string, but only X, d = 1
+			this->d = 1;
+		}
+		else { // Calculating the degree and initialize to D
+			for (i = i + 2; i < (int)(s.length()); i++) {
+				num += s[i];
+			}
+			this->d = stoi(num);
+		}
 	}
 	numberOfMonomials++;
 }
@@ -154,6 +184,9 @@ void Monomial::print() const {
 	}
 	else if (c == 1 && d == 1) {
 		cout << "x";
+	}
+	else if (c == -1 && d == 1) {
+		cout << "-x";
 	}
 	else if (c == 1 && d > 1) {
 		cout << "x^" << d;
