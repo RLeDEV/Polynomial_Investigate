@@ -21,10 +21,9 @@ Monomial::Monomial(double coe, int deg) {
 }
 
 // C'tor with string
-Monomial::Monomial(string s) { 
+Monomial::Monomial(string s) {
 	bool xExist = false;
 	double finalC = 1;
-	int finalD = 0;
 	string num;
 	int i;
 	if (s[0] != '-') { // this is a positive number
@@ -37,7 +36,7 @@ Monomial::Monomial(string s) {
 			this->c = 1;
 		}
 		else { // Inputed string not contains only 'x'
-			finalC= stod(num);
+			finalC = stod(num);
 			this->c = finalC; // Init the found C
 		}
 		num = ""; // reseting num
@@ -53,7 +52,7 @@ Monomial::Monomial(string s) {
 			this->d = 1;
 		}
 		else {
-			for (i = i+2; i < (int)(s.length()); i++) { // Calculating the degree and putting as d
+			for (i = i + 2; i < (int)(s.length()); i++) { // Calculating the degree and putting as d
 				num += s[i];
 			}
 			this->d = stoi(num);

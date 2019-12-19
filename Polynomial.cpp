@@ -10,7 +10,7 @@
 using std::string;
 
 using namespace std;
-
+double zero = 0;
 Polynomial::Polynomial() {
 	head = NULL;
 }
@@ -46,7 +46,7 @@ istream& operator>>(istream& in, Polynomial& p) {
 	}
 	p.head = NULL; // reseting the polynomial
 	string s;
-	getline(in,s); // getting the string from input
+	getline(in, s); // getting the string from input
 	if (s[0] == '\0') {
 		cout << "ERROR!! " << endl;
 		return in;
@@ -55,12 +55,12 @@ istream& operator>>(istream& in, Polynomial& p) {
 	char *dup = strdup(s.c_str()); // duplicating the string to array of chars
 	string splitedString = strtok(dup, "+-,");
 	char signs[100] = "";
-	if (s == "0") { 
+	if (s == "0") {
 		return in;
 	}
 	int numOfSigns = 0;
 	// Getting all the signs into an array of signs
-	for (int i = 0; i < stringSize ; i++) {
+	for (int i = 0; i < stringSize; i++) {
 		if (s[i] == '+' || s[i] == '-') {
 			signs[numOfSigns++] = s[i];
 		}
@@ -89,7 +89,7 @@ istream& operator>>(istream& in, Polynomial& p) {
 					k++; // adding monom to p
 				}
 			}
-			if(k != numOfSigns)
+			if (k != numOfSigns)
 				splitedString = strtok(NULL, "+-"); // continue cut the string by + , -
 		}
 	}
@@ -124,7 +124,6 @@ istream& operator>>(istream& in, Polynomial& p) {
 ostream& operator<<(ostream& out, const Polynomial& p) {
 	// prints the monom
 	p.print();
-	cout << endl;
 	return out;
 }
 
@@ -234,10 +233,9 @@ const Polynomial& Polynomial::operator-=(const Polynomial& other) {
 	return *this;
 }
 
-double Polynomial::operator[](int num) { // Get coefficient where degree=num
+double& Polynomial::operator[](int num) { // Get coefficient where degree=num
 	Monomial* current = head;
-	double x = 0;
-	if (head == NULL) return x; // list is empty, returning 0
+	if (head == NULL) return zero; // list is empty, returning 0
 	while (current != NULL) {
 		if (current->getDegree() == num) {
 			return (current->getCoeByRef()); //  Get the coefficient by ref to read/re-assign
@@ -245,7 +243,7 @@ double Polynomial::operator[](int num) { // Get coefficient where degree=num
 		else current = current->getNext();
 	}
 	// If reached so far the degree hasn't been found so returning 0
-	return x; // Returning 0
+	return zero; // Returning 0
 }
 
 const double Polynomial::operator()(const int num) const {
@@ -282,7 +280,7 @@ const bool Polynomial::operator==(const Monomial& mon) const {
 	else return false;
 };
 
-const bool Polynomial::operator!=(const Polynomial& other) const { 
+const bool Polynomial::operator!=(const Polynomial& other) const {
 	if (!head || !other.head) return true;
 	Monomial* monPtr = head;
 	Monomial* otherPtr = other.head;
