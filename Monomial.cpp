@@ -21,38 +21,39 @@ Monomial::Monomial(double coe, int deg) {
 }
 
 // C'tor with string
-Monomial::Monomial(string s) {
+Monomial::Monomial(string s) { 
 	bool xExist = false;
-	double finalC;
+	double finalC = 1;
+	int finalD = 0;
 	string num;
 	int i;
 	if (s[0] != '-') { // this is a positive number
 		for (i = 0; i < (int)(s.length()); i++) {
-			if (s[i] == 'x')
+			if (s[i] == 'x') // Finds if the currently index contains 'x'
 				break;
-			num += s[i];
+			num += s[i]; // copying the inputed string until 'x' found
 		}
-		if (s[0] == 'x' || (s[0] == '1' && s[1] == 'x')) {
+		if (s[0] == 'x' || (s[0] == '1' && s[1] == 'x')) { // finds if the inputed string is only 'x'
 			this->c = 1;
 		}
-		else {
+		else { // Inputed string not contains only 'x'
 			finalC= stod(num);
-			this->c = finalC;
+			this->c = finalC; // Init the found C
 		}
-		num = "";
-		for (int j = 0; j < (int)(s.length()); j++) {
+		num = ""; // reseting num
+		for (int j = 0; j < (int)(s.length()); j++) { // checks if there's 'x' in the string
 			if (s[j] == 'x')
 				xExist = true;
 		}
-		if (xExist == false)
+		if (xExist == false) // In case there's no 'x' in the inputed string, degree will be 0.
 		{
 			this->d = 0;
 		}
-		else if (i == (int)(s.length()) - 1) {
+		else if (i == (int)(s.length()) - 1) { // In case there's no degree in the inputed string, but there is X, d=1
 			this->d = 1;
 		}
 		else {
-			for (i = i+2; i < (int)(s.length()); i++) {
+			for (i = i+2; i < (int)(s.length()); i++) { // Calculating the degree and putting as d
 				num += s[i];
 			}
 			this->d = stoi(num);
@@ -60,31 +61,31 @@ Monomial::Monomial(string s) {
 	}
 	else { // this is a negative number
 		int i;
-		for (i = 1; i < (int)(s.length()); i++) {
+		for (i = 1; i < (int)(s.length()); i++) { // Finds if the currently index contains 'x' (starting from 1)
 			if (s[i] == 'x')
 				break;
-			num += s[i];
+			num += s[i]; // Copying the inputed string until 'x' found.
 		}
-		if (s[1] == 'x' || (s[1] == '1' && s[2] == 'x')) {
+		if (s[1] == 'x' || (s[1] == '1' && s[2] == 'x')) { // finds if the inputed string is only '-x'
 			this->c = -1;
 		}
-		else {
+		else { // Inputed string is not only '-x'
 			finalC = stod(num) * (-1);
-			this->c = finalC;
+			this->c = finalC; // Init found c.
 		}
-		num = "";
-		for (int j = 0; j < (int)(s.length()); j++) {
+		num = ""; // Reseting num
+		for (int j = 0; j < (int)(s.length()); j++) { // checks if there's 'x' in the string for degree
 			if (s[j] == 'x')
 				xExist = true;
 		}
-		if (xExist == false)
+		if (xExist == false) // In case there's no 'x' in the inputed string, degree will be 0
 		{
 			this->d = 0;
 		}
-		else if (i == (int)(s.length()) - 1) {
+		else if (i == (int)(s.length()) - 1) { // In case there's no degree in the inputed string, but only x, degree = 1.
 			this->d = 1;
 		}
-		else {
+		else { // Calculating the degree and initalize to d
 			for (i = i + 2; i < (int)(s.length()); i++) {
 				num += s[i];
 			}
