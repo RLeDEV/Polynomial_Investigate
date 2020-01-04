@@ -1,16 +1,16 @@
 # Polynomial investigate project
 ## General
-- This project was prepared as a part of my B.Sc degree in Computer Science, as a part of OOP course.
-- The project was written in C++, please view comments to understand it better.
-- The project idea was based on a linked-list (Polynomial) of Monomials.
+- I made this project as a part of my B.Sc degree in Computer Science, in OOP course.
+- I made this project with C++, please view comments to understand it better.
+- The project's idea was based on a linked-list (Polynomial) of Monomials.
 
 ## Classes and possibilites
 ### Monomial:
 1. There are 3 kinds of constructors:
-- Making Monomial by 2 numbers (Coefficient will be double, and degree will be int)
-- Making Monomial by other Monomial (Copy constructor)
-- Making Monomial from a string - that will parse your string and make it a new Monomial
-    String templates:
+- Build Monomial by 2 numbers (Coefficient will be double, and degree will be int)
+- Build Monomial by other Monomial (Copy constructor)
+- Build Monomial from a string - that will parse your string and make it a new Monomial
+    String allowed templates:
     1. 'Coefficient'x^'Degree' i.e: 3x^3
     2. x^'Degree' i.e: x^3
     3. 'Coefficient'x i.e.: 1x
